@@ -20,8 +20,7 @@ ve derslerin ara aşamaları (Astro 7.3.5, sürümler `package-lock.json` ile sa
 
 ## Kendi bilgisayarınızda
 
-Bu klasörde kurs boyunca yapacağımız örnek sitenin **bitmiş hâli**, derslerin **ara aşamaları** ve
-ders görsellerini üreten araçlar var. Örnek site: Eskişehir’de kurgusal bir mahalle kafesi,
+Bu depoda kurs boyunca yapacağımız örnek sitenin **bitmiş hâli** ve derslerin **ara aşamaları** var. Örnek site: Eskişehir’de kurgusal bir mahalle kafesi,
 **Kahve Durağı**. Astro ile yapılır, bilgisayarınızda önizlenir, derlenir ve Cloudflare Pages’e
 yüklenmeye hazır hâle getirilir.
 
