@@ -1,0 +1,22 @@
+---
+// Teşekkür sayfası: gerçek bir form servisi gönderimden sonra ziyaretçiyi buraya yönlendirir.
+// Arama motorlarında görünmemesi için "noindex" ve sitemap dışında (astro.config.mjs → filter).
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout baslik="Teşekkürler" aciklama="Mesajınız bize ulaştı." indekslenmesin>
+  <section class="bolum">
+    <div class="kap orta">
+      <h1>Teşekkürler!</h1>
+      <p>Mesajınızı aldık. En geç bir iş günü içinde e-posta ile dönüş yapacağız.</p>
+      <a class="dugme" href="/">Ana sayfaya dön</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .orta {
+    text-align: center;
+    max-width: 640px;
+  }
+</style>

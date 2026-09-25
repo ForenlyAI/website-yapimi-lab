@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../data/site';
+---
+
+<Layout baslik={SITE.ad}>
+  <section class="kahraman">
+    <div class="kap kahraman-ic">
+      <div>
+        <span class="ust-yazi">Eskişehir · Odunpazarı</span>
+        <h1>Günün en güzel molası burada.</h1>
+        <p class="giris">
+          Taze kavrulmuş kahve, ev yapımı tatlılar ve güler yüzlü bir mahalle kafesi. Kahve Durağı’na
+          uğrayın, bir fincan için, biraz dinlenin.
+        </p>
+        <a class="dugme" href="/menu/">Menüye göz at</a>
+      </div>
+      <img
+        class="kahraman-gorsel"
+        src="/img/hero.svg"
+        width="560"
+        height="440"
+        alt="Latte süslemeli, buharı tüten büyük bir kahve fincanı, yanında kahve çekirdekleri ve bir saksı bitkisi"
+      />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kahraman {
+    background: linear-gradient(180deg, var(--bej) 0%, var(--krem) 100%);
+    padding: 40px 0 56px;
+  }
+  .kahraman-ic {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 32px;
+  }
+  .giris {
+    font-size: 1.25rem;
+    color: var(--kahve);
+    max-width: 34ch;
+  }
+  .kahraman-gorsel {
+    width: 100%;
+    max-width: 520px;
+    justify-self: end;
+  }
+  @media (max-width: 760px) {
+    .kahraman-ic {
+      grid-template-columns: 1fr;
+    }
+    .kahraman-gorsel {
+      justify-self: center;
+      max-width: 340px;
+    }
+  }
+</style>

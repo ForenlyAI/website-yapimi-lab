@@ -1,0 +1,281 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../data/site';
+
+// FORM ADRESİ — YER TUTUCU
+// Bu site statiktir: kendi sunucusu yoktur, form verisini kendisi kaydedemez ya da e-postayla gönderemez.
+// Gerçek kullanımda `action` bir form servisinin adresi olur (ör. Cloudflare Pages Functions ile yazılmış
+// küçük bir uç nokta ya da bir form hizmeti). O servis gönderimden sonra /tesekkurler/ sayfasına yönlendirir.
+// Ders sürümünde aşağıdaki betik gönderimi tarayıcıda durdurur ve teşekkür mesajını gösterir; hiçbir veri
+// hiçbir yere gönderilmez.
+const FORM_ADRESI = '/tesekkurler/';
+---
+
+<Layout
+  baslik="İletişim"
+  aciklama="Kahve Durağı’na ulaşın: adres, telefon, e-posta, çalışma saatleri ve iletişim formu."
+>
+  <section class="sayfa-basi">
+    <div class="kap">
+      <span class="ust-yazi">İletişim</span>
+      <h1>Bize yazın, uğrayın</h1>
+      <p>Grup rezervasyonu, toplu sipariş ya da sadece bir öneri — formu doldurun, en geç bir iş günü içinde dönelim.</p>
+    </div>
+  </section>
+
+  <section class="bolum">
+    <div class="kap iletisim">
+      <div class="bilgi">
+        <h2>İletişim bilgileri</h2>
+        <dl>
+          <dt>Adres</dt>
+          <dd>{SITE.adres}</dd>
+          <dt>Telefon</dt>
+          <dd><a href={SITE.telefonLink}>{SITE.telefon}</a></dd>
+          <dt>E-posta</dt>
+          <dd><a href={`mailto:${SITE.eposta}`}>{SITE.eposta}</a></dd>
+        </dl>
+        <h3>Çalışma saatleri</h3>
+        <ul class="saatler">
+          {
+            SITE.saatler.map((s) => (
+              <li>
+                <span>{s.gun}</span> <span>{s.saat}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="form-kutu">
+        <form id="iletisim-formu" action={FORM_ADRESI} method="post" novalidate>
+          <h2>Mesaj gönderin</h2>
+          <p class="zorunlu-not">* ile işaretli alanlar zorunludur.</p>
+
+          <div class="alan">
+            <label for="ad">Adınız *</label>
+            <input id="ad" name="ad" type="text" autocomplete="name" required minlength="2" aria-describedby="ad-hata" />
+            <p class="hata" id="ad-hata" hidden>Lütfen adınızı yazın.</p>
+          </div>
+
+          <div class="alan">
+            <label for="eposta">E-posta adresiniz *</label>
+            <input id="eposta" name="eposta" type="email" autocomplete="email" required aria-describedby="eposta-hata" />
+            <p class="hata" id="eposta-hata" hidden>Lütfen geçerli bir e-posta adresi yazın (ör. ad@alanadi.com).</p>
+          </div>
+
+          <div class="alan">
+            <label for="mesaj">Mesajınız *</label>
+            <textarea id="mesaj" name="mesaj" rows="5" required minlength="10" aria-describedby="mesaj-hata"></textarea>
+            <p class="hata" id="mesaj-hata" hidden>Mesajınız en az 10 karakter olmalı.</p>
+          </div>
+
+          <div class="alan onay">
+            <input id="kvkk" name="kvkk" type="checkbox" required aria-describedby="kvkk-hata" />
+            <label for="kvkk">
+              Kişisel verilerimin, bu mesajı yanıtlamak amacıyla KVKK aydınlatma metnine uygun olarak işlenmesini
+              kabul ediyorum. *
+            </label>
+            <p class="hata" id="kvkk-hata" hidden>Devam etmek için onay kutusunu işaretleyin.</p>
+          </div>
+          <details class="aydinlatma">
+            <summary>KVKK aydınlatma metnini oku</summary>
+            <p>
+              Formda paylaştığınız ad, e-posta ve mesaj bilgileri yalnızca talebinizi yanıtlamak için kullanılır,
+              üçüncü kişilerle paylaşılmaz ve yanıt verildikten sonra en geç 6 ay içinde silinir. Haklarınız için{" "}
+              <a href={`mailto:${SITE.eposta}`}>{SITE.eposta}</a> adresine yazabilirsiniz.{" "}
+              <em>(Örnek metindir; gerçek bir işletme kendi hukuki metnini kullanmalıdır.)</em>
+            </p>
+          </details>
+
+          <button class="dugme" type="submit">Gönder</button>
+        </form>
+
+        <div id="tesekkur" class="tesekkur" role="status" tabindex="-1" hidden>
+          <svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#2f5d50" />
+            <path d="M14 25l7 7 13-15" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h2>Teşekkürler<span id="tesekkur-ad"></span>!</h2>
+          <p>Mesajınızı aldık. En geç bir iş günü içinde e-posta ile dönüş yapacağız.</p>
+          <p class="demo-not">Bu bir ders örneğidir: mesajınız hiçbir yere gönderilmedi.</p>
+          <a class="dugme ikincil" href="/">Ana sayfaya dön</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Tarayıcı içi doğrulama + teşekkür durumu. Veri hiçbir sunucuya gönderilmez (bkz. FORM ADRESİ notu).
+  const form = document.getElementById('iletisim-formu') as HTMLFormElement | null;
+  const tesekkur = document.getElementById('tesekkur');
+
+  if (form && tesekkur) {
+    const alanlar = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea'));
+
+    const denetle = (alan: HTMLInputElement | HTMLTextAreaElement) => {
+      const gecerli = alan.checkValidity();
+      const hata = document.getElementById(`${alan.id}-hata`);
+      alan.setAttribute('aria-invalid', String(!gecerli));
+      if (hata) hata.hidden = gecerli;
+      return gecerli;
+    };
+
+    alanlar.forEach((alan) => {
+      // Hatalı alan düzeltildikçe mesajı hemen kaldır (yazarken), böylece sayfa odak değişirken kaymaz.
+      alan.addEventListener('input', () => {
+        if (alan.getAttribute('aria-invalid') === 'true') denetle(alan);
+      });
+      alan.addEventListener('blur', () => {
+        if (alan.value || alan.getAttribute('aria-invalid')) denetle(alan);
+      });
+      alan.addEventListener('change', () => denetle(alan));
+    });
+
+    form.addEventListener('submit', (olay) => {
+      olay.preventDefault();
+      const sonuc = alanlar.map(denetle);
+      const ilkHatali = alanlar[sonuc.indexOf(false)];
+      if (ilkHatali) {
+        ilkHatali.focus();
+        return;
+      }
+      const ad = (form.elements.namedItem('ad') as HTMLInputElement).value.trim().split(' ')[0];
+      const adYeri = document.getElementById('tesekkur-ad');
+      if (adYeri) adYeri.textContent = ad ? `, ${ad}` : '';
+      form.hidden = true;
+      tesekkur.hidden = false;
+      tesekkur.focus();
+    });
+  }
+</script>
+
+<style>
+  .iletisim {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+  }
+  dl {
+    margin: 0 0 24px;
+  }
+  dt {
+    font-weight: 700;
+    margin-top: 12px;
+  }
+  dd {
+    margin: 0;
+  }
+  .saatler {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .saatler li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cizgi);
+  }
+  .form-kutu {
+    background: var(--kagit);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--yuvarlak);
+    padding: 32px;
+    box-shadow: var(--golge);
+  }
+  .zorunlu-not {
+    color: var(--kahve);
+    font-size: 1rem;
+  }
+  .alan {
+    margin-bottom: 18px;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  input[type='text'],
+  input[type='email'],
+  textarea {
+    width: 100%;
+    font: inherit;
+    padding: 12px 14px;
+    border: 2px solid #b9a58c;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--espresso);
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    border-color: var(--yesil);
+  }
+  [aria-invalid='true'] {
+    border-color: #b3261e !important;
+  }
+  .hata {
+    color: #b3261e;
+    font-weight: 600;
+    margin: 6px 0 0;
+    font-size: 1rem;
+  }
+  .onay {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    align-items: start;
+  }
+  .onay input {
+    width: 24px;
+    height: 24px;
+    margin: 2px 0 0;
+    accent-color: var(--yesil);
+  }
+  .onay label {
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 0;
+  }
+  .onay .hata {
+    grid-column: 2;
+  }
+  .aydinlatma {
+    margin: 0 0 20px 36px;
+    font-size: 0.98rem;
+    color: var(--kahve);
+  }
+  .aydinlatma summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--karamel);
+  }
+  .aydinlatma p {
+    margin: 8px 0 0;
+  }
+  .tesekkur {
+    text-align: center;
+    padding: 24px 8px;
+  }
+  .tesekkur svg {
+    margin: 0 auto 16px;
+  }
+  .tesekkur:focus {
+    outline: none;
+  }
+  .demo-not {
+    font-size: 0.95rem;
+    color: var(--kahve);
+    font-style: italic;
+  }
+  @media (max-width: 860px) {
+    .iletisim {
+      grid-template-columns: 1fr;
+    }
+    .form-kutu {
+      padding: 22px;
+    }
+  }
+</style>

@@ -1,0 +1,13 @@
+{
+  "name": "Website Yapımı 101 lab (Node 22.23.2 · Astro 7.3.5)",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22.23.2" },
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  },
+  "forwardPorts": [4321],
+  "portsAttributes": { "4321": { "label": "Kahve Durağı (Astro)", "onAutoForward": "openBrowser" } },
+  "hostRequirements": { "cpus": 2, "memory": "4gb" },
+  "customizations": { "vscode": { "extensions": ["astro-build.astro-vscode"] } },
+  "postCreateCommand": "cd kahve-duragi && npm ci --no-audit --no-fund && echo 'Hazır. Siteyi açmak için: cd kahve-duragi && npm run dev -- --host'"
+}

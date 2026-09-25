@@ -1,0 +1,22 @@
+{
+  "name": "kahve-duragi",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website Yapımı 101 — Kahve Durağı, ders 2.1 sonundaki hâli",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "7.3.5"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

@@ -1,0 +1,6 @@
+# Tüm arama motorları siteyi tarayabilir.
+User-agent: *
+Allow: /
+
+# Site haritası (Astro @astrojs/sitemap üretir). Adresi kendi alan adınızla değiştirin.
+Sitemap: https://kahve-duragi.pages.dev/sitemap-index.xml

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" width="560" height="420">
+  <!-- Kahve Durağı dükkân önü (elle çizilmiş SVG, kurgusal) -->
+  <rect width="560" height="420" rx="24" fill="#f3e6d4"/>
+  <rect x="0" y="360" width="560" height="60" fill="#e0cdb3"/>
+  <!-- bina -->
+  <rect x="70" y="70" width="420" height="300" fill="#fffaf3" stroke="#2b1d16" stroke-width="6"/>
+  <rect x="100" y="86" width="360" height="52" rx="10" fill="#2b1d16"/>
+  <text x="280" y="123" text-anchor="middle" font-family="'Trebuchet MS', Arial, 'DejaVu Sans', sans-serif" font-weight="700" font-size="30" fill="#fbf6ee">KAHVE DURAĞI</text>
+  <!-- tente -->
+  <g stroke="#2b1d16" stroke-width="5" stroke-linejoin="round">
+    <path d="M60 150h440l-20 50H80z" fill="#fbf6ee"/>
+    <path d="M104 150h44l-8 50h-44zM192 150h44l-4 50h-44zM280 150h44l0 50h-44zM368 150h44l4 50h-44zM456 150h44l-20 50h-36z" fill="#9c4a1a"/>
+  </g>
+  <g fill="none" stroke="#2b1d16" stroke-width="5">
+    <path d="M80 200q22 18 44 0q22 18 44 0q22 18 44 0q22 18 44 0q22 18 44 0q22 18 44 0q22 18 44 0q22 18 44 0q22 18 48 0"/>
+  </g>
+  <!-- vitrin -->
+  <rect x="100" y="222" width="190" height="120" rx="8" fill="#cfe3dc" stroke="#2b1d16" stroke-width="5"/>
+  <path d="M112 330l60-96M150 330l50-80" stroke="#fff" stroke-width="8" opacity=".6"/>
+  <rect x="120" y="300" width="150" height="16" rx="4" fill="#9c4a1a"/>
+  <path d="M150 300v-22a16 16 0 0 1 32 0v22" fill="#fffaf3" stroke="#2b1d16" stroke-width="4"/>
+  <path d="M206 300v-30a14 14 0 0 1 28 0v30" fill="#6b3e26" stroke="#2b1d16" stroke-width="4"/>
+  <!-- kapı -->
+  <rect x="320" y="222" width="130" height="146" rx="6" fill="#2f5d50" stroke="#2b1d16" stroke-width="5"/>
+  <rect x="338" y="240" width="94" height="70" rx="6" fill="#cfe3dc" stroke="#2b1d16" stroke-width="4"/>
+  <circle cx="432" cy="330" r="6" fill="#f6c89f"/>
+  <rect x="352" y="258" width="66" height="30" rx="4" fill="#fffaf3" stroke="#2b1d16" stroke-width="3"/>
+  <text x="385" y="279" text-anchor="middle" font-family="Arial, 'DejaVu Sans', sans-serif" font-weight="700" font-size="16" fill="#2b1d16">AÇIK</text>
+  <!-- saksılar -->
+  <path d="M26 368l8-40h40l8 40z" fill="#9c4a1a" stroke="#2b1d16" stroke-width="4"/>
+  <circle cx="54" cy="310" r="26" fill="#4f8a74" stroke="#2b1d16" stroke-width="4"/>
+  <path d="M478 368l8-40h40l8 40z" fill="#9c4a1a" stroke="#2b1d16" stroke-width="4"/>
+  <circle cx="506" cy="310" r="26" fill="#4f8a74" stroke="#2b1d16" stroke-width="4"/>
+</svg>

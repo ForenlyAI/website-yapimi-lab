@@ -1,0 +1,119 @@
+---
+// Footer: iletişim bilgileri, çalışma saatleri ve telif satırı.
+import { SITE, MENU_LINKLERI } from '../data/site';
+
+const yil = new Date().getFullYear();
+---
+
+<footer class="alt">
+  <div class="kap alt-ic">
+    <div>
+      <p class="alt-ad">{SITE.ad}</p>
+      <p>{SITE.slogan}</p>
+      <address>
+        {SITE.adres}<br />
+        <a href={SITE.telefonLink}>{SITE.telefon}</a><br />
+        <a href={`mailto:${SITE.eposta}`}>{SITE.eposta}</a>
+      </address>
+    </div>
+    <div>
+      <p class="alt-baslik">Çalışma saatleri</p>
+      <ul class="saatler">
+        {
+          SITE.saatler.map((s) => (
+            <li>
+              <span>{s.gun}</span>
+              <span>{s.saat}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <nav aria-label="Alt menü">
+      <p class="alt-baslik">Sayfalar</p>
+      <ul class="alt-menu">
+        {
+          MENU_LINKLERI.map((l) => (
+            <li>
+              <a href={l.href}>{l.ad}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="kap telif">
+    <p>© {yil} {SITE.ad}. Bu site Website Yapımı 101 kursu için hazırlanmış kurgusal bir örnektir.</p>
+  </div>
+</footer>
+
+<style>
+  .alt {
+    background: var(--espresso);
+    color: #e9dccb;
+    margin-top: 0;
+    font-size: 1rem;
+  }
+  .alt-ic {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 0.8fr;
+    gap: 32px;
+    padding-top: 48px;
+    padding-bottom: 32px;
+  }
+  .alt p {
+    margin: 0 0 0.5em;
+  }
+  .alt-ad {
+    font-family: var(--baslik-font);
+    font-size: 1.6rem;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .alt-baslik {
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+  }
+  address {
+    font-style: normal;
+    margin-top: 12px;
+  }
+  .alt a {
+    color: #f6c89f;
+  }
+  .alt a:hover {
+    color: #fff;
+  }
+  .saatler,
+  .alt-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .saatler li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .alt-menu li {
+    padding: 4px 0;
+  }
+  .telif {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 18px;
+    padding-bottom: 24px;
+    font-size: 0.95rem;
+    color: #cdbba6;
+  }
+  @media (max-width: 760px) {
+    .alt-ic {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>

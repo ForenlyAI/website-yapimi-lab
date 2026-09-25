@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MenuItem from '../components/MenuItem.astro';
+import { MENU } from '../data/menu';
+---
+
+<Layout
+  baslik="Menü"
+  aciklama="Kahve Durağı menüsü: sıcak kahveler, soğuk içecekler, tatlılar ve atıştırmalıklar. Güncel fiyatlar TL cinsinden."
+>
+  <section class="sayfa-basi">
+    <div class="kap">
+      <span class="ust-yazi">Menü</span>
+      <h1>Bugün ne içelim?</h1>
+      <p>Tüm kahvelerimiz taze çekilir. Bitki bazlı süt seçeneği her içecekte ücretsizdir.</p>
+      <nav class="kategori-linkleri" aria-label="Menü kategorileri">
+        {MENU.map((k) => <a href={`#${k.id}`}>{k.baslik}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  {
+    MENU.map((k) => (
+      <section class="bolum kategori" id={k.id} aria-labelledby={`${k.id}-baslik`}>
+        <div class="kap">
+          <h2 id={`${k.id}-baslik`}>{k.baslik}</h2>
+          <div class="kartlar">
+            {k.urunler.map((u) => (
+              <MenuItem {...u} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="kap not">
+    <p>Fiyatlara KDV dahildir. Alerjen bilgisi için lütfen kasaya danışın.</p>
+  </section>
+</Layout>
+
+<style>
+  .kategori-linkleri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .kategori-linkleri a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--kagit);
+    border: 1px solid var(--cizgi);
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--espresso);
+  }
+  .kategori-linkleri a:hover {
+    border-color: var(--karamel);
+    color: var(--karamel);
+  }
+  .kategori {
+    padding: 40px 0 8px;
+    scroll-margin-top: 80px;
+  }
+  .kartlar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .not {
+    padding-top: 24px;
+    padding-bottom: 56px;
+    color: var(--kahve);
+  }
+  @media (max-width: 760px) {
+    .kartlar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

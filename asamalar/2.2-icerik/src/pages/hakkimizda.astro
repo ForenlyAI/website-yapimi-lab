@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const degerler = [
+  { baslik: 'Yerel', metin: 'Tatlılarımızdaki süt, yumurta ve tereyağını Eskişehir çevresindeki üreticilerden alıyoruz.' },
+  { baslik: 'Özenli', metin: 'Her espresso tartılır, her süt ölçülür. Tutarlı lezzet, şans işi değildir.' },
+  { baslik: 'Samimi', metin: 'Adınızı ve her zamanki siparişinizi hatırlarız. Mahalle kafesi olmak budur.' },
+];
+---
+
+<Layout
+  baslik="Hakkımızda"
+  aciklama="Kahve Durağı’nın hikâyesi: Odunpazarı’nda küçük bir tezgâhla başlayan mahalle kafesi ve değerlerimiz."
+>
+  <section class="sayfa-basi">
+    <div class="kap">
+      <span class="ust-yazi">Hakkımızda</span>
+      <h1>Küçük bir tezgâhtan mahalle durağına</h1>
+      <p>Kahve Durağı, iyi kahvenin herkes için ulaşılabilir olması gerektiğine inanan iki arkadaşın hikâyesi.</p>
+    </div>
+  </section>
+
+  <section class="bolum">
+    <div class="kap hikaye">
+      <img
+        src="/img/kafe.svg"
+        width="560"
+        height="420"
+        loading="lazy"
+        alt="Kahve Durağı’nın dükkân önü: çizgili tente, üzerinde tabela, vitrin ve AÇIK yazılı yeşil kapı"
+      />
+      <div>
+        <h2>Hikâyemiz</h2>
+        <p>
+          Her şey, Odunpazarı’nda iki metrekarelik bir tezgâhla başladı. Sabahları üniversiteye giden
+          öğrencilere, akşamları işten dönen komşulara kahve demledik.
+        </p>
+        <p>
+          Bugün aynı sokakta, otuz kişilik küçük bir salonumuz var. Değişmeyen tek şey: her fincanı sanki
+          ilk müşterimize yapıyormuş gibi hazırlamak.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum degerler-bolum" aria-labelledby="degerler">
+    <div class="kap">
+      <h2 id="degerler">Değerlerimiz</h2>
+      <ul class="degerler">
+        {
+          degerler.map((d) => (
+            <li>
+              <h3>{d.baslik}</h3>
+              <p>{d.metin}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hikaye {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hikaye img {
+    border-radius: var(--yuvarlak);
+  }
+  .degerler-bolum {
+    background: var(--bej);
+  }
+  .degerler {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .degerler li {
+    background: var(--kagit);
+    border-radius: var(--yuvarlak);
+    border: 1px solid var(--cizgi);
+    padding: 24px;
+  }
+  .degerler p {
+    margin: 0;
+    color: var(--kahve);
+  }
+  @media (max-width: 760px) {
+    .hikaye,
+    .degerler {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

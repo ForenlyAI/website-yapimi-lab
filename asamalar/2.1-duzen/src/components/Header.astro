@@ -1,0 +1,173 @@
+---
+// Header: logo + menü. Dar ekranda (telefon) menü bir düğmeyle açılır/kapanır.
+import { SITE, MENU_LINKLERI } from '../data/site';
+
+const yol = Astro.url.pathname.replace(/\/?$/, '/');
+const aktifMi = (href: string) => (href === '/' ? yol === '/' : yol.startsWith(href));
+---
+
+<header class="ust">
+  <div class="kap ust-ic">
+    <a class="logo" href="/" aria-label={`${SITE.ad} — ana sayfa`}>
+      <svg class="logo-simge" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="#9c4a1a" />
+        <path d="M13 21h19v6a9 9 0 0 1-9 9h-1a9 9 0 0 1-9-9z" fill="#fbf6ee" />
+        <path d="M32 23h2.5a3.5 3.5 0 0 1 0 7H31" fill="none" stroke="#fbf6ee" stroke-width="2.5" />
+        <path d="M19 11c-2 2 2 4 0 7M25 11c-2 2 2 4 0 7" fill="none" stroke="#fbf6ee" stroke-width="2.2" stroke-linecap="round" />
+      </svg>
+      <span>{SITE.ad}</span>
+    </a>
+
+    <button class="menu-dugme" type="button" aria-expanded="false" aria-controls="ana-menu">
+      <span class="cizgiler" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span>Menü</span>
+    </button>
+
+    <nav id="ana-menu" class="menu" aria-label="Ana menü">
+      <ul>
+        {
+          MENU_LINKLERI.map((l) => (
+            <li>
+              <a href={l.href} aria-current={aktifMi(l.href) ? 'page' : undefined}>
+                {l.ad}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Telefon menüsü: düğmeye basınca menüyü aç/kapat, Esc ile kapat.
+  const dugme = document.querySelector<HTMLButtonElement>('.menu-dugme');
+  const menu = document.getElementById('ana-menu');
+  if (dugme && menu) {
+    const ayarla = (acik: boolean) => {
+      dugme.setAttribute('aria-expanded', String(acik));
+      menu.classList.toggle('acik', acik);
+    };
+    dugme.addEventListener('click', () => ayarla(dugme.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('acik')) {
+        ayarla(false);
+        dugme.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .ust {
+    background: var(--espresso);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .ust-ic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 72px;
+    gap: 16px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--baslik-font);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .logo:hover {
+    color: #fff;
+  }
+  .menu ul {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .menu a {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: #f3e6d4;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .menu a[aria-current='page'] {
+    background: #fbf6ee;
+    color: var(--espresso);
+  }
+  .menu-dugme {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .logo {
+      font-size: 1.35rem;
+    }
+    .logo-simge {
+      width: 34px;
+      height: 34px;
+    }
+    .menu-dugme {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      color: #fff;
+      font: 600 1rem var(--govde-font);
+      cursor: pointer;
+    }
+    .cizgiler {
+      display: grid;
+      gap: 4px;
+    }
+    .cizgiler span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+    .menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--espresso);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 20px 20px;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+    }
+    .menu.acik {
+      display: block;
+    }
+    .menu ul {
+      flex-direction: column;
+    }
+    .menu a {
+      padding: 14px 16px;
+      font-size: 1.15rem;
+      border-radius: 12px;
+    }
+  }
+</style>

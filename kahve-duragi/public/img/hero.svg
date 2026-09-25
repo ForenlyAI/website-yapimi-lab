@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" width="560" height="440">
+  <!-- Kahve Durağı — ana sayfa çizimi (elle çizilmiş SVG, telifsiz) -->
+  <ellipse cx="290" cy="220" rx="250" ry="200" fill="#f3e6d4"/>
+  <circle cx="470" cy="90" r="34" fill="#e8c9a4"/>
+  <!-- bitki -->
+  <rect x="62" y="300" width="70" height="70" rx="10" fill="#2f5d50"/>
+  <path d="M97 300c-30-40-40-80-18-110 10 30 18 60 18 110z" fill="#4f8a74"/>
+  <path d="M97 300c10-50 30-80 60-92-6 40-26 70-60 92z" fill="#3f7563"/>
+  <path d="M97 300c-20-30-50-44-74-40 12 26 40 40 74 40z" fill="#5f9c85"/>
+  <!-- tabak -->
+  <ellipse cx="290" cy="360" rx="170" ry="32" fill="#e3cfb4"/>
+  <ellipse cx="290" cy="352" rx="150" ry="26" fill="#fffaf3" stroke="#e0cdb3" stroke-width="3"/>
+  <!-- fincan -->
+  <path d="M170 190h240v60c0 66-54 110-120 110s-120-44-120-110z" fill="#fffaf3" stroke="#2b1d16" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M408 212h22a40 40 0 0 1 0 80h-34" fill="none" stroke="#2b1d16" stroke-width="12" stroke-linecap="round"/>
+  <path d="M408 212h22a40 40 0 0 1 0 80h-34" fill="none" stroke="#fffaf3" stroke-width="5" stroke-linecap="round"/>
+  <path d="M190 270c40 10 160 10 200 0" fill="none" stroke="#9c4a1a" stroke-width="10" stroke-linecap="round"/>
+  <!-- kahve yüzeyi -->
+  <ellipse cx="290" cy="190" rx="120" ry="24" fill="#6b3e26" stroke="#2b1d16" stroke-width="6"/>
+  <ellipse cx="290" cy="192" rx="96" ry="16" fill="#8a5434"/>
+  <path d="M290 202c-18-8-30-12-30-20 0-7 10-10 16-5 4 3 8 6 14 12 6-6 10-9 14-12 6-5 16-2 16 5 0 8-12 12-30 20z" fill="#f6e3cc"/>
+  <!-- buhar -->
+  <g fill="none" stroke="#9c4a1a" stroke-width="7" stroke-linecap="round" opacity=".75">
+    <path d="M250 150c-16-18 16-30 0-52s14-34 0-52"/>
+    <path d="M292 140c-16-18 16-30 0-52s14-34 0-52"/>
+    <path d="M334 150c-16-18 16-30 0-52s14-34 0-52"/>
+  </g>
+  <!-- çekirdekler -->
+  <g fill="#6b3e26">
+    <ellipse cx="470" cy="360" rx="16" ry="11" transform="rotate(-25 470 360)"/>
+    <ellipse cx="500" cy="340" rx="16" ry="11" transform="rotate(20 500 340)"/>
+    <ellipse cx="455" cy="330" rx="14" ry="10" transform="rotate(60 455 330)"/>
+  </g>
+  <g fill="none" stroke="#2b1d16" stroke-width="2.5" stroke-linecap="round">
+    <path d="M458 366c8-4 16-8 24-14"/>
+    <path d="M490 334c6 4 14 8 20 12"/>
+    <path d="M450 322c4 6 8 12 10 18"/>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+---
+// Layout: her sayfanın ortak iskeleti — <head>, üst menü, alt bilgi.
+// Sayfalar bu bileşeni sarar; kendi içerikleri <slot /> yerine girer.
+// (Paylaşım kartı / og etiketleri ve site haritası sonraki derslerde eklenecek.)
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  baslik: string;
+  aciklama?: string;
+}
+
+const { baslik, aciklama = SITE.aciklama } = Astro.props;
+const tamBaslik = baslik === SITE.ad ? `${SITE.ad} · ${SITE.slogan}` : `${baslik} · ${SITE.ad}`;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tamBaslik}</title>
+    <meta name="description" content={aciklama} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="atla" href="#icerik">İçeriğe geç</a>
+    <Header />
+    <main id="icerik">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

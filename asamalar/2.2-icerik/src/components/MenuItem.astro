@@ -1,0 +1,90 @@
+---
+// MenuItem: menüdeki tek bir ürün kartı (görsel, ad, açıklama, fiyat).
+import { fiyatYaz } from '../data/menu';
+
+interface Props {
+  ad: string;
+  aciklama: string;
+  fiyat: number;
+  gorsel: string;
+  etiket?: string;
+}
+
+const { ad, aciklama, fiyat, gorsel, etiket } = Astro.props;
+---
+
+<article class="urun">
+  <div class="urun-gorsel">
+    <img src={gorsel} alt="" width="96" height="96" loading="lazy" decoding="async" />
+  </div>
+  <div class="urun-metin">
+    <div class="urun-ust">
+      <h3>{ad}</h3>
+      <p class="fiyat"><span class="gorunmez">Fiyat: </span>{fiyatYaz(fiyat)}</p>
+    </div>
+    <p class="urun-aciklama">{aciklama}</p>
+    {etiket && <span class="etiket">{etiket}</span>}
+  </div>
+</article>
+
+<style>
+  .urun {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: var(--kagit);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--yuvarlak);
+    padding: 18px;
+    box-shadow: var(--golge);
+    height: 100%;
+  }
+  .urun-gorsel {
+    flex: none;
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    background: var(--bej);
+    display: grid;
+    place-items: center;
+  }
+  .urun-gorsel img {
+    width: 80px;
+    height: 80px;
+  }
+  .urun-metin {
+    flex: 1;
+    min-width: 0;
+  }
+  .urun-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  h3 {
+    margin: 0 0 4px;
+    font-size: 1.3rem;
+  }
+  .fiyat {
+    margin: 0;
+    font-weight: 700;
+    color: var(--karamel);
+    white-space: nowrap;
+    font-size: 1.15rem;
+  }
+  .urun-aciklama {
+    margin: 0 0 8px;
+    color: var(--kahve);
+    font-size: 1.05rem;
+  }
+  .etiket {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--yesil);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+</style>

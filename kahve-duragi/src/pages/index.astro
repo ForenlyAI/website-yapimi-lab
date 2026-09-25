@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MenuItem from '../components/MenuItem.astro';
+import { SITE } from '../data/site';
+import { MENU } from '../data/menu';
+
+// Ana sayfada her kategoriden bir ürün gösteriyoruz: etiketli olan, yoksa ilk ürün.
+const oneCikanlar = MENU.map((k) => k.urunler.find((u) => u.etiket) ?? k.urunler[0]);
+
+const ozellikler = [
+  { baslik: 'Taze kavrum', metin: 'Çekirdeklerimizi haftada iki kez, küçük partiler hâlinde kavuruyoruz.' },
+  { baslik: 'Ev yapımı tatlılar', metin: 'Kekler ve poğaçalar her sabah kendi fırınımızdan çıkıyor.' },
+  { baslik: 'Sakin çalışma köşesi', metin: 'Priz, hızlı internet ve uzun oturmalar için rahat bir masa.' },
+];
+---
+
+<Layout baslik={SITE.ad}>
+  <section class="kahraman">
+    <div class="kap kahraman-ic">
+      <div class="kahraman-metin">
+        <span class="ust-yazi">Eskişehir · Odunpazarı</span>
+        <h1>Günün en güzel molası burada.</h1>
+        <p class="giris">
+          Taze kavrulmuş kahve, ev yapımı tatlılar ve güler yüzlü bir mahalle kafesi. Kahve Durağı’na
+          uğrayın, bir fincan için, biraz dinlenin.
+        </p>
+        <div class="dugmeler">
+          <a class="dugme" href="/menu/">Menüye göz at</a>
+          <a class="dugme ikincil" href="/iletisim/">Nasıl gelinir?</a>
+        </div>
+      </div>
+      <img
+        class="kahraman-gorsel"
+        src="/img/hero.svg"
+        width="560"
+        height="440"
+        alt="Latte süslemeli, buharı tüten büyük bir kahve fincanı, yanında kahve çekirdekleri ve bir saksı bitkisi"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="bolum" aria-labelledby="neden">
+    <div class="kap">
+      <h2 id="neden">Neden Kahve Durağı?</h2>
+      <ul class="ozellikler">
+        {
+          ozellikler.map((o, i) => (
+            <li>
+              <span class="sira" aria-hidden="true">{i + 1}</span>
+              <h3>{o.baslik}</h3>
+              <p>{o.metin}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="bolum one-cikan" aria-labelledby="onecikan">
+    <div class="kap">
+      <div class="bolum-ust">
+        <h2 id="onecikan">Öne çıkanlar</h2>
+        <a href="/menu/">Tüm menüyü gör →</a>
+      </div>
+      <div class="kartlar">
+        {oneCikanlar.map((u) => <MenuItem {...u} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum" aria-labelledby="ziyaret">
+    <div class="kap ziyaret">
+      <div>
+        <h2 id="ziyaret">Bize uğrayın</h2>
+        <p>{SITE.adres}</p>
+        <p>
+          Telefon: <a href={SITE.telefonLink}>{SITE.telefon}</a>
+        </p>
+        <a class="dugme" href="/iletisim/">Bize yazın</a>
+      </div>
+      <dl class="saat-tablosu">
+        {
+          SITE.saatler.map((s) => (
+            <div>
+              <dt>{s.gun}</dt>
+              <dd>{s.saat}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kahraman {
+    background: linear-gradient(180deg, var(--bej) 0%, var(--krem) 100%);
+    padding: 40px 0 24px;
+  }
+  .kahraman-ic {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 32px;
+  }
+  .giris {
+    font-size: 1.25rem;
+    color: var(--kahve);
+    max-width: 34ch;
+  }
+  .dugmeler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .kahraman-gorsel {
+    width: 100%;
+    max-width: 520px;
+    justify-self: end;
+  }
+  .ozellikler {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .ozellikler li {
+    background: var(--kagit);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--yuvarlak);
+    padding: 24px;
+  }
+  .ozellikler p {
+    margin: 0;
+    color: var(--kahve);
+  }
+  .sira {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--yesil);
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .one-cikan {
+    background: var(--bej);
+  }
+  .bolum-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .bolum-ust a {
+    font-weight: 700;
+  }
+  .kartlar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .ziyaret {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .saat-tablosu {
+    margin: 0;
+    background: var(--kagit);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--yuvarlak);
+    padding: 12px 24px;
+  }
+  .saat-tablosu div {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cizgi);
+  }
+  .saat-tablosu div:last-child {
+    border-bottom: 0;
+  }
+  .saat-tablosu dt {
+    font-weight: 700;
+  }
+  .saat-tablosu dd {
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .kartlar,
+    .ozellikler {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    .kahraman-ic,
+    .ziyaret {
+      grid-template-columns: 1fr;
+    }
+    .kahraman-gorsel {
+      justify-self: center;
+      max-width: 340px;
+    }
+    .bolum {
+      padding: 48px 0;
+    }
+  }
+</style>
